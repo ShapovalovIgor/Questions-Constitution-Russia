@@ -1,0 +1,21 @@
+spring:
+  application:
+     name: Questions-Constitution-Russia
+  ai:
+    ollama:
+      embedding:
+        model: infidelis/GigaChat-20B-A3B-instruct-v1.5:q5_0
+      chat:
+        model: infidelis/GigaChat-20B-A3B-instruct-v1.5:q5_0
+        options:
+          model: infidelis/GigaChat-20B-A3B-instruct-v1.5:q5_0
+          temperature: 0.5
+    vectorstore:
+      pgvector:
+        index-type: hnsw
+        distance-type: cosine_distance
+        dimensions: 1536
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qcr
+    username: postgres
+    password: postgres
