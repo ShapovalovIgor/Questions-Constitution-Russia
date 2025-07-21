@@ -1,48 +1,55 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.5.3'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.springframework.boot' version '3.5.3'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'ru.shapovalov.QuestionsConstitutionRussia'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
-	set('springAiVersion', "1.0.0")
+    set('springAiVersion', "1.0.0")
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql:42.7.7'
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector:1.0.0'
+    implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor "org.projectlombok:lombok:1.18.38"
 
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
-	implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
-	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
-	compileOnly 'org.projectlombok:lombok:1.18.26'
+    // Swagger
+    implementation "org.springdoc:springdoc-openapi-ui:1.8.0"
 
-	//Test
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    //Log
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+    implementation 'ch.qos.logback:logback-classic:1.5.18'
+
+    //Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 }
 
 dependencyManagement {
-	imports {
-		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
-	}
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

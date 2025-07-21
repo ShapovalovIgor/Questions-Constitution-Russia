@@ -12,10 +12,37 @@ spring:
           temperature: 0.5
     vectorstore:
       pgvector:
-        index-type: hnsw
+        index-type: none
         distance-type: cosine_distance
-        dimensions: 1536
+        dimensions: 2048
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+        initialize-schema: true
+        remove-existing-vector-store-table: true
   datasource:
     url: jdbc:postgresql://localhost:5432/qcr
     username: postgres
     password: postgres
+
+logbook:
+  format:
+    style: http
+  write:
+    level: trace
+  exclude:
+    - /**/*swagger*/**
+    - /*swagger*
+    - /**/api-docs
+    - /metrics
+    - /actuator/**
+
+logging:
+  level:
+    ru.shapovalov: debug
+    org.zalando.logbook: trace
+
+springdoc:
+  api-docs:
+    enabled: ${swagger.enabled}
+    path: /Questions-Constitution-Russia/v3/api-docs
+  swagger-ui:
+    path: /Questions-Constitution-Russia/swagger-ui.html
