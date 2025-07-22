@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS vector_store (
                                             id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
                                             content text,
                                             metadata json,
-                                            embedding vector(2000)
+                                            embedding vector(2048)
 );
 
 CREATE INDEX ON vector_store USING HNSW (embedding vector_cosine_ops);
